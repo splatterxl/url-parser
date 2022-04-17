@@ -9,7 +9,7 @@ defmodule Firefly do
 
   def send_request(addr, method \\ "get") when is_binary(addr) and is_binary(method) do
     if Url.is_valid?(addr) do
-      url = Url.get_components(addr)
+      {:ok, url} = Url.get_components(addr)
 
       if Domain.ip?(url.host) do
         do_request(url, method)
