@@ -8,9 +8,8 @@ defmodule Firefly do
   alias Firefly.Url
 
   def send_request(addr, method \\ "get") when is_binary(addr) and is_binary(method) do
-    if Url.is_valid?(addr) do
-      {:ok, url} = Url.get_components(addr)
-
+    {status, url} = Url.get_components(addr)
+    if status == :ok do
       if Domain.ip?(url.host) do
         do_request(url, method)
       else
@@ -18,6 +17,8 @@ defmodule Firefly do
 
         # Dns.resolve(url.host)
       end
+    else
+      {:error, url}
     end
   end
 
