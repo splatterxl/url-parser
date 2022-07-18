@@ -1,4 +1,4 @@
-defmodule Firefly.Domain do
+defmodule Firefly.Host do
   @moduledoc false
 
   def ip?(host) when is_binary(host) do
